@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine, Shreya?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffebee;
+            color: #d32f2f;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+        .maze-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 2px solid #d32f2f;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .maze-wall {
+            position: absolute;
+            background-color: #d32f2f;
+        }
+        .player {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #4caf50;
+            border-radius: 50%;
+            transition: all 0.1s ease;
+        }
+        .finish {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        .message {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will You Be My Valentine, Shreya?</h1>
+    <div class="maze-container">
+        <div class="maze-wall" style="top: 0; left: 0; width: 300px; height: 10px;"></div>
+        <div class="maze-wall" style="top: 0; left: 0; width: 10px; height: 300px;"></div>
+        <div class="maze-wall" style="top: 290px; left: 0; width: 300px; height: 10px;"></div>
+        <div class="maze-wall" style="top: 0; left: 290px; width: 10px; height: 300px;"></div>
+        <div class="maze-wall" style="top: 50px; left: 50px; width: 200px; height: 10px;"></div>
+        <div class="maze-wall" style="top: 100px; left: 100px; width: 10px; height: 150px;"></div>
+        <div class="maze-wall" style="top: 200px; left: 150px; width: 100px; height: 10px;"></div>
+        <div class="player" id="player"></div>
+        <div class="finish" style="top: 270px; left: 270px;"></div>
+    </div>
+    <div class="message" id="message">
+        Shreya, you've overcome all obstacles! Will you be my Valentine? ❤️
+    </div>
+
+    <script>
+        const player = document.getElementById('player');
+        const message = document.getElementById('message');
+        const finish = document.querySelector('.finish');
+        let playerX = 10, playerY = 10;
+
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            const step = 10;
+
+            if (key === 'ArrowUp' && playerY > 10) playerY -= step;
+            if (key === 'ArrowDown' && playerY < 270) playerY += step;
+            if (key === 'ArrowLeft' && playerX > 10) playerX -= step;
+            if (key === 'ArrowRight' && playerX < 270) playerX += step;
+
+            player.style.top = `${playerY}px`;
+            player.style.left = `${playerX}px`;
+
+            if (playerX >= 260 && playerY >= 260) {
+                message.style.display = 'block';
+                finish.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
